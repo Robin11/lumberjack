@@ -11,3 +11,5 @@ import (
 func fadvise(file *os.File,offset,size int) error {
 	return unix.Fadvise(int(file.Fd(),offset,size,unix.FADV_NONTNEED))
 }
+
+
