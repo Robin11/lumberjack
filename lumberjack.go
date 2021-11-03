@@ -25,6 +25,7 @@ import (
 	"compress/gzip"
 	"errors"
 	"fmt"
+	"golang.org/x/sys/unix"
 	"io"
 	"io/ioutil"
 	"os"
@@ -506,10 +507,7 @@ func compressLogFile(src, dst string) (err error) {
 		fmt.Println(err)
 		return err
 	}
-	if err:=fadvise(gzf,0,int(gzStat.Size()));err!=nil{
-		fmt.Println(err)
-		return err
-	}
+	unix.Fadvise(int(gzf.Fd()),0,gzStat.Size(),unix.FADV_NONTNEED)
 	if err := gz.Close(); err != nil {
 		return err
 	}

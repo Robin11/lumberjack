@@ -6,6 +6,6 @@ import (
 	"os"
 )
 
-func fadvise(_ *os.File,offset,size int) error {
+func fadvise(_ *os.File,_,_ int) error {
 	return nil
 }
