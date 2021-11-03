@@ -501,7 +501,15 @@ func compressLogFile(src, dst string) (err error) {
 	if _, err := io.Copy(gz, f); err != nil {
 		return err
 	}
-	
+	gzStat,err:=gzf.Stat()
+	if err!=nil{
+		fmt.Println(err)
+		return err
+	}
+	if err:=fadvise(gzf,0,int(gzStat.Size()));err!=nil{
+		fmt.Println(err)
+		return err
+	}
 	if err := gz.Close(); err != nil {
 		return err
 	}
